@@ -6,6 +6,10 @@ const app = express();
 
 app.use(express.json());
 
+app.get('/', (req: Request, res: Response) => {
+    res.json({ status: 'working' })
+})
+
 app.post('/sendemail', async (req: Request, res: Response) => {
     const { emailTo, pengumuman, isi } = req.body;
 
@@ -14,16 +18,16 @@ app.post('/sendemail', async (req: Request, res: Response) => {
     }
 
     const transporter = nodemailer.createTransport({
-        service: 'gmail', 
+        service: 'gmail',
         auth: {
-            user: process.env.EMAIL_USER, 
+            user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS,
         },
     });
 
     const mailOptions = {
-        from: process.env.EMAIL_USER, 
-        to: emailTo, 
+        from: process.env.EMAIL_USER,
+        to: emailTo,
         subject: pengumuman,
         text: isi,
     };
