@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 
 app.get('/', (req: Request, res: Response) => {
-    res.json({ status: 'working' })
+    res.json({ status: 'working' }) 
 })
 
 app.post('/sendemail', async (req: Request, res: Response) => {
