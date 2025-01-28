@@ -11,9 +11,9 @@ app.get('/', (req: Request, res: Response) => {
 })
 
 app.post('/sendemail', async (req: Request, res: Response) => {
-    const { emailTo, subject, text } = req.body;
+    const { emailTo, subject, text, pass } = req.body;
 
-    if (!emailTo || !subject || !text) {
+    if (!emailTo || !subject || !text || pass != process.env.YOUR_PASS) {
         return res.status(400).json({ message: 'Field emailTo, subject, dan text harus diisi.' });
     }
 
