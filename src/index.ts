@@ -11,10 +11,10 @@ app.get('/', (req: Request, res: Response) => {
 })
 
 app.post('/sendemail', async (req: Request, res: Response) => {
-    const { emailTo, pengumuman, isi } = req.body;
+    const { emailTo, subject, text } = req.body;
 
-    if (!emailTo || !pengumuman || !isi) {
-        return res.status(400).json({ message: 'Field emailTo, pengumuman, dan isi harus diisi.' });
+    if (!emailTo || !subject || !text) {
+        return res.status(400).json({ message: 'Field emailTo, subject, dan text harus diisi.' });
     }
 
     const transporter = nodemailer.createTransport({
@@ -28,8 +28,8 @@ app.post('/sendemail', async (req: Request, res: Response) => {
     const mailOptions = {
         from: process.env.EMAIL_USER,
         to: emailTo,
-        subject: pengumuman,
-        text: isi,
+        subject: subject,
+        text: text,
     };
 
     try {

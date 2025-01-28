@@ -17,9 +17,12 @@ const nodemailer_1 = __importDefault(require("nodemailer"));
 require("dotenv/config");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
+app.get('/', (req, res) => {
+    res.json({ status: 'working' });
+});
 app.post('/sendemail', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { emailTo, pengumuman, isi } = req.body;
-    if (!emailTo || !pengumuman || !isi) {
+    const { emailTo, subject, text } = req.body;
+    if (!emailTo || !subject || !text) {
         return res.status(400).json({ message: 'Field emailTo, pengumuman, dan isi harus diisi.' });
     }
     const transporter = nodemailer_1.default.createTransport({
@@ -32,8 +35,8 @@ app.post('/sendemail', (req, res) => __awaiter(void 0, void 0, void 0, function*
     const mailOptions = {
         from: process.env.EMAIL_USER,
         to: emailTo,
-        subject: pengumuman,
-        text: isi,
+        subject: subject,
+        text: text,
     };
     try {
         yield transporter.sendMail(mailOptions);
