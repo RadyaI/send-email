@@ -21,8 +21,8 @@ app.get('/', (req, res) => {
     res.json({ status: 'working' });
 });
 app.get('/ip', (req, res) => {
-    const ip = req.ip;
-    res.send(ip);
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    res.json(ip);
 });
 app.post('/sendemail', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { emailTo, subject, text, pass } = req.body;

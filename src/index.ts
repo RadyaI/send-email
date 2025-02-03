@@ -11,8 +11,8 @@ app.get('/', (req: Request, res: Response) => {
 })
 
 app.get('/ip', (req: Request, res: Response) => {
-    const ip = req.ip
-    res.send(ip)
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    res.json(ip);
 })
 
 app.post('/sendemail', async (req: Request, res: Response) => {
