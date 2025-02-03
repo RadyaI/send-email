@@ -11,7 +11,7 @@ app.get('/', (req: Request, res: Response) => {
 })
 
 app.get('/ip', (req: Request, res: Response) => {
-    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
     res.json(ip);
 })
 
