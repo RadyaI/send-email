@@ -10,6 +10,11 @@ app.get('/', (req: Request, res: Response) => {
     res.json({ status: 'working' }) 
 })
 
+app.get('/ip', (req: Request, res: Response) => {
+    const ip = req.ip
+    res.send(ip)
+})
+
 app.post('/sendemail', async (req: Request, res: Response) => {
     const { emailTo, subject, text, pass } = req.body;
 

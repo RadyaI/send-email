@@ -20,10 +20,14 @@ app.use(express_1.default.json());
 app.get('/', (req, res) => {
     res.json({ status: 'working' });
 });
+app.get('/ip', (req, res) => {
+    const ip = req.ip;
+    res.send(ip);
+});
 app.post('/sendemail', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { emailTo, subject, text } = req.body;
-    if (!emailTo || !subject || !text) {
-        return res.status(400).json({ message: 'Field emailTo, pengumuman, dan isi harus diisi.' });
+    const { emailTo, subject, text, pass } = req.body;
+    if (!emailTo || !subject || !text || pass != process.env.YOUR_PASS) {
+        return res.status(400).json({ message: 'Field emailTo, subject, dan text harus diisi.' });
     }
     const transporter = nodemailer_1.default.createTransport({
         service: 'gmail',
